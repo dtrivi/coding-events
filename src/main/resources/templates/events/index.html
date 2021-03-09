@@ -7,6 +7,9 @@
 <body>
 
 <h1>All Events</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
 <!-- is there something called events? do you have a non-null variable called events. if so, let's make sure there are things inside that variable. -->
 <p th:unless="${events} and ${events.size()}">No events!</p> <!-- unless this boolean statement evaluates to 'true', display this element. AKA if this boolean statement evaluates to true, it will not display the element. If it evaluates to false, it will display it. -->
 
