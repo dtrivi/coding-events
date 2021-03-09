@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
+<body class="container">
 
-<h1>All Events</h1>
+<header th:replace="fragments :: header"></header>
 
-<nav th:replace="fragments :: navigation"></nav>
-
-<!-- is there something called events? do you have a non-null variable called events. if so, let's make sure there are things inside that variable. -->
-<p th:unless="${events} and ${events.size()}">No events!</p> <!-- unless this boolean statement evaluates to 'true', display this element. AKA if this boolean statement evaluates to true, it will not display the element. If it evaluates to false, it will display it. -->
-
-<ul>
-    <th:block th:each="event : ${events}">
-        <li th:text="${event}"></li>
-    </th:block>
-</ul>
+<table class="table table-striped"> <!-- Should create grey/white striped rows-->
+    <thead>
+        <tr> <!-- table row -->
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tr th:each="event : ${events}">
+        <td th:text="${event}"></td>
+    </tr>
+</table>
 
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org/">-->
+<!--<head th:replace="fragments :: head"></head>-->
+<!--<body>-->
+
+<!--<h1>All Events</h1>-->
+
+<!--<nav th:replace="fragments :: navigation"></nav>-->
+
+<!--&lt;!&ndash; is there something called events? do you have a non-null variable called events. if so, let's make sure there are things inside that variable. &ndash;&gt;-->
+<!--<p th:unless="${events} and ${events.size()}">No events!</p> &lt;!&ndash; unless this boolean statement evaluates to 'true', display this element. AKA if this boolean statement evaluates to true, it will not display the element. If it evaluates to false, it will display it. &ndash;&gt;-->
+
+<!--<ul>-->
+<!--    <th:block th:each="event : ${events}">-->
+<!--        <li th:text="${event}"></li>-->
+<!--    </th:block>-->
+<!--</ul>-->
+
+<!--</body>-->
+<!--</html>-->
