@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create Event</title>
+</head>
+<body>
+
+<h1>Create Event</h1>
+
+<form method="post" action="/events/create"> <!-- 'method' specifies how the form should be submitted. 'action' refers to the handler -->
+    <input type="text" name="eventName"> <!-- 'name' attribute gives the form element a label, used when submitting the data -->
+    <input type="submit" value="Create Event"> <!-- 'value' attribute specifies the text that goes on the button -->
+</form>
+
+</body>
+</html>

@@ -26,4 +26,10 @@ public class EventController {
         return "events/index";
     }
 
+    // lives at /events . Note that @RequestMapping on line 15 establishes an 'events' prefix meaning this is /events/create
+    @GetMapping("create")
+    public String renderCreateEventForm() {
+        return "events/create"; // Have to include 'events/' because 'create.html' is located under the 'events' subfolder in the 'templates' folder.
+    }
+
 }
