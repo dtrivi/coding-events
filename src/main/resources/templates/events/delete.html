@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post"> <!-- We're changing data based on the user's selection, thus we use POST. -->
+
+    <th:block th:each="event : ${events}"> <!-- We want to make a loop here. This will loop over the event collection put in. -->
+        <div class="form-group">
+        <label>
+            <span th:text="${event.name}"></span> <!-- For the text of the label. -->
+            <input type="checkbox" name="eventIds" th:value="${event.id}" class="form-control"> <!-- 'name' is going to be the label that the data is submitted to the server under. "eventIds" is plural because every input is going to have the same name. Therefore, what's submitted to the server is going to be a collection of ids, not just a single id. 'th:value' is there because we need to be able to know the event id in order to delete it. The th helps us use Thymeleaf syntax. Form-control is bootstrap. -->
+        </label>
+        </div>
+    </th:block>
+
+    <input type="submit" value="Delete" class="btn btn-danger">
+
+</form> <!-- We're not putting an action on here because we're going to this form POST to the same endpoint at which it lives. Same as we did for create event. -->
+
+</body>
+</html>
