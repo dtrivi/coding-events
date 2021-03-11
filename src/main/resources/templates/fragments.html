@@ -1,42 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <title>Coding Events</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}"></script>
 </head>
 <body>
 
-<nav th:fragment="header"> <!-- defines this block as a fragment -->
+<nav th:fragment="header">
     <h1 th:text="${title}">Coding Events</h1>
-    <ul class="nav"> <!-- we want to use the bootstrap nav classes-->
-        <li class="nav-item"><a class="nav-link" href="/events">All Events</a></li>
-        <li class="nav-item"><a class="nav-link" href="/events/create">Create Event</a></li>
+    <ul>
+        <li><a href="/events">All Events</a></li>
+        <li><a href="/events/create">Create Event</a></li>
     </ul>
 </nav>
 
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="https://www.thymeleaf.org/">-->
-<!--<head th:fragment="head"> &lt;!&ndash; in order to use our /script.js and /styles.css across all of our files, we had to define the head element as a fragment. Then we can just reference this fragment anywhere else in our site. &ndash;&gt;-->
-<!--    <meta charset="UTF-8"/>-->
-<!--    <title>Coding Events</title>-->
-
-<!--    <script th:src="@{/script.js}"></script>-->
-<!--    <link th:href="@{/styles.css}" rel="stylesheet"> &lt;!&ndash; thymeleaf will be able to find /script.js and /styles.css as long as they're located in the static folder under the templates directory. &ndash;&gt;-->
-
-<!--</head>-->
-<!--<body>-->
-
-<!--<nav th:fragment="navigation"> &lt;!&ndash; defines this block as a fragment &ndash;&gt;-->
-<!--    <ul>-->
-<!--        <li><a href="/events">All Events</a></li>-->
-<!--        <li><a href="/events/create">Create Event</a></li>-->
-<!--    </ul>-->
-<!--</nav>-->
-
-<!--</body>-->
-<!--</html>-->

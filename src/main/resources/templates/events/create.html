@@ -1,37 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body>
 
 <header th:replace="fragments :: header"></header>
 
 <form method="post">
-    <div class="form-group"> <!-- form groups are ways of grouping form inputs-->
-        <label>Name
-            <input type="text" name="eventName" class="form-control"> <!-- each input also gets a 'form-control' class. we only have one text input, so there's only one form-control needed in this case-->
-        </label>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-success"> <!-- this is a button input signified by the 'btn' class  -->
-    </div>
+    <input type="text" name="eventName">
+    <input type="submit" value="Create">
 </form>
 
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="https://www.thymeleaf.org/">-->
-<!--<head th:replace="fragments :: head"></head>-->
-<!--<body class="container">-->
-
-<!--<h1>Create Event</h1>-->
-
-<!--<nav th:replace="fragments :: navigation"></nav>-->
-
-<!--<form method="post" action="/events/create"> &lt;!&ndash; 'method' specifies how the form should be submitted. 'action' refers to the handler &ndash;&gt;-->
-<!--    <input type="text" name="eventName"> &lt;!&ndash; 'name' attribute gives the form element a label, used when submitting the data &ndash;&gt;-->
-<!--    <input type="submit" value="Create Event"> &lt;!&ndash; 'value' attribute specifies the text that goes on the button &ndash;&gt;-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->
