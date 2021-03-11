@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +19,10 @@ import java.util.List;
 @RequestMapping("events")
 public class EventController {
 
-    private static List<Event> events = new ArrayList<>();
-
     @GetMapping
     public String displayAllEvents(Model model) {
         model.addAttribute("title", "All Events");
-        model.addAttribute("events", events);
+        model.addAttribute("events", EventData.getAll()); // previously had our events list which was being housed in the controller. Now it references our EventData class and getAll() method. That method is a static method, so we don't initialize the class. We just call the static method off the class itself.
         return "events/index";
     }
 
@@ -35,7 +34,7 @@ public class EventController {
 
     @PostMapping("create")
     public String processCreateEventForm(@RequestParam String eventName, @RequestParam String eventDescription) {
-        events.add(new Event(eventName, eventDescription)); // Now takes an Event object (which takes a String). Previously, we were passing in a String. Had to make this change after updating our List to contain a list of Events instead of Strings.
+        EventData.add(new Event(eventName, eventDescription)); // We were previously adding a new Event object to our static list in the controller. With that gone, now we just reference the EventData data layer static class.
         return "redirect:";
     }
 
