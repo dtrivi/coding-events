@@ -4,10 +4,7 @@ import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +29,12 @@ public class EventController {
         return "events/create";
     }
 
+    // This method is/was the handler that gets called when someone submits the form to create a new event. The way it was set up, we had to refer to every single piece of data for an event that you wanted to create, specifically what we had in the parameters for this method eventName and eventDescription.
+    // Model binding allows us to streamline this process so we don't have to have such a long list of parameters. It also does validation on our data.
     @PostMapping("create")
-    public String processCreateEventForm(@RequestParam String eventName, @RequestParam String eventDescription) {
-        EventData.add(new Event(eventName, eventDescription)); // We were previously adding a new Event object to our static list in the controller. With that gone, now we just reference the EventData data layer static class.
-        return "redirect:";
+    public String processCreateEventForm(@ModelAttribute Event newEvent) { // We replaced our list of parameters with a single parameter enabled by the @ModelAttribute annotation. Now when Spring tries to call this method (a POST request is made to the /create route), it will look  for fields that match up with fields of the Event class. It'll look for parameters in the request that have the same class identifiers.
+        EventData.add(newEvent); // With model binding, this method will now create an Event object and populate those fields with the values. Previously we called the Event constructor with the values of the parameters passed in. Here, we previously were passing in the eventName and eventDescription. Now we're allowing Spring to do this for us. Now we just add newEvent.
+        return "redirect:"; // Last thing we need to do to tie everything together is go back to our form and make sure the names of the form inputs match up with the names of the fields in this class.
     }
 
     @GetMapping("delete")
