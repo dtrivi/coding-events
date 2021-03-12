@@ -11,12 +11,14 @@
             <th>ID</th> <!-- Just here so we can test this to make sure it works. -->
             <th>Name</th>
             <th>Description</th>
+            <th>Contact Email</th>
         </tr>
     </thead>
     <tr th:each="event : ${events}">
         <td th:text="${event.id}"></td>
         <td th:text="${event.name}"></td> <!-- Previously looping over a list of events, but referenced those events as Strings. Now we're looping over a list of Events and each of those Events has a name property. The Thymeleaf syntax event.fieldName runs a getter method behind the scenes in order to access a field.  -->
         <td th:text="${event.description}"></td>
+        <td th:text="${event.contactEmail}"></td>
     </tr>
 </table>
 
