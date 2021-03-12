@@ -5,6 +5,8 @@
 
 <header th:replace="fragments :: header"></header>
 
+<p th:text="${errorMsg}" style="color:red;"></p> <!-- This paragraph tag will be populated by the value of hte errorMsg parameter if it exists. -->
+
 <form method="post">
     <div class="form-group">
         <label>Name
