@@ -2,6 +2,7 @@ package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.EventType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,6 +28,7 @@ public class EventController {
     public String displayCreateEventForm(Model model) {
         model.addAttribute("title", "Create Event");
         model.addAttribute(new Event()); // Passing in an empty Event object to the view. Had to create a "no-arg" constructor in Event.java. We're going to use this empty Event object, which has information about Event fields (such as knowing an event object has a name and description and data types of those fields). We want to use that information in our template to help render our form more efficiently. So you go to create.html at this point and adjust code.
+        model.addAttribute("types", EventType.values()); // Want to make sure our form is displayed with a drop-down for the event types. This line returns an Array of the 4 different values that exist for that enum type. We can use them in the create.html template to render a drop down.
         return "events/create";
     }
 

@@ -26,6 +26,16 @@
         <p class="error" th:errors="${event.contactEmail}"></p>
     </div>
     <div class="form-group">
+        <label>Type
+            <select th:field="${event.type}" > <!-- This makes sure that the name property is generated properly. The select element's id and name attribute are set by the th:field.-->
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.displayName}"
+                ></option> <!-- We want this option tag repeated once for each element in types. Thus, we create a loop. ${types} refers to the name we gave EventType.values() in the displayCreateEventForm handler in EventController.java. It essentially references the Array of types we set up. Note, th:value is what gets submitted to the server, so we want that to be the actual enum value. th:text is what's going to be displayed to the user, hence type.displayName. -->
+            </select>
+        </label>
+    </div>
+    <div class="form-group">
         <input type="submit" value="Create" class="btn btn-success"> <
     </div>
 </form>

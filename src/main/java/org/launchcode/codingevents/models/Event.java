@@ -22,15 +22,20 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    private EventType type; // Create a property to use our enum with our events, then add it to the constructor, then add a getter and setter.
+
+    public Event(String name, String description, String contactEmail, EventType type) {
+        this(); // Calls a different constructor within the same class. We had to move nextId to the no-arg constructor because SpringBoot will always call that first(?). So because we utilize the no-arg constructor in the displayCreateEventForm handler, we weren't actually getting to the nextId field in our Event class. Thus, when we added a new event, it wouldn't build off previous events we added. Each event got assigned an event id of 0.
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.type = type;
+    }
+
+    public Event() { // Had to create a "no-arg" constructor (no argument constructor) after passing in an empty new Event object into displayEventForm handler. This constructor doesn't initialize any fields.
         this.id = nextId;
         nextId++;
     }
-
-    public Event() {} // Had to create a "no-arg" constructor (no argument constructor) after passing in an empty new Event object into displayEventForm handler. This constructor doesn't initialize any fields.
 
     public String getName() {
         return name;
@@ -54,6 +59,14 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public int getId() { // Don't want to create a setter because we don't want someone to set our id's for us in this case. Also, don't want to expose nextId. It will remain private and only to be used INSIDE the class. Just used for the id initialization.
