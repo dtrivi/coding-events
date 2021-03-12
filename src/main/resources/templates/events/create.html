@@ -31,7 +31,7 @@
                 <option th:each="type : ${types}"
                         th:value="${type}"
                         th:text="${type.displayName}"
-                ></option> <!-- We want this option tag repeated once for each element in types. Thus, we create a loop. ${types} refers to the name we gave EventType.values() in the displayCreateEventForm handler in EventController.java. It essentially references the Array of types we set up. Note, th:value is what gets submitted to the server, so we want that to be the actual enum value. th:text is what's going to be displayed to the user, hence type.displayName. -->
+                ></option> <!-- We want this option tag repeated once for each element in types. Thus, we create a loop. ${types} refers to the name we gave EventType.values() in the displayCreateEventForm handler in EventController.java. It essentially references the Array of types we set up. This logic applies to every reference to 'type' in the option element. Note, th:value is what gets submitted to the server, so we want that to be the actual enum value. th:text is what's going to be displayed to the user, hence type.displayName. -->
             </select>
         </label>
     </div>
