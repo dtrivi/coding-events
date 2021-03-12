@@ -11,14 +11,14 @@ public class Event {
     private static int nextId = 1;
 
     // Adding validation annotations to restrict the range of the values that can be used here.
-    @NotBlank
+    @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
     private String name;
 
     @Size(max = 500, message = "Description too long.")
     private String description;
 
-    @NotBlank // Have to add this because because a blank email will still pass the @Email validation.
+    @NotBlank(message = "Email is required.") // Have to add this because because a blank email will still pass the @Email validation.
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
@@ -29,6 +29,8 @@ public class Event {
         this.id = nextId;
         nextId++;
     }
+
+    public Event() {} // Had to create a "no-arg" constructor (no argument constructor) after passing in an empty new Event object into displayEventForm handler. This constructor doesn't initialize any fields.
 
     public String getName() {
         return name;

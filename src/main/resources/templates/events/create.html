@@ -5,23 +5,25 @@
 
 <header th:replace="fragments :: header"></header>
 
-<p th:text="${errorMsg}" style="color:red;"></p> <!-- This paragraph tag will be populated by the value of hte errorMsg parameter if it exists. -->
-
 <form method="post">
     <div class="form-group">
         <label>Name
-            <input type="text" name="name" class="form-control"> <!-- Previously this was eventName but after introducing model binding, we have to make sure the names of the form inputs match up with the names of the fields in this class. Thus eventName becomes simply 'name'. Same for 'description'.-->
+            <!-- This previously held input info like type="text" and name="name". But now we can use special Thymeleaf syntax to have those two attributes automatically generated for me using information from that empty Event object in EventController.java's displayCreateEventForm. -->
+            <input th:field="${event.name}" class="form-control"> <!-- th:field now tells Thymeleaf that we want this input to correspond to the name field of our object (${event.name}). So we're asking Thymeleaf to go ahead and create the corresponding name attribute and input for us. We know that for model-binding the name attribute has to match up with the field name in the Model object itself. -->
         </label>
+        <p class="error" th:errors="${event.name}"></p> <!-- This is saying "insert any error messages associated with this field into this <p> tag." Doing this for each field allows us to erase our general "Bad Data!" error message (errorMsg) for the page. -->
     </div>
     <div class="form-group">
         <label>Description
-            <input type="text" name="description" class="form-control">
+            <input th:field="${event.description}" class="form-control"> <!-- Doing the same thing we did for the name input -->
         </label>
+        <p class="error" th:errors="${event.description}"></p>
     </div>
     <div class="form-group">
         <label>Contact Email
-            <input type="text" name="contactEmail" class="form-control">
+            <input th:field="${event.contactEmail}" class="form-control"> <!-- Doing the same thing we did for the name and description inputs. -->
         </label>
+        <p class="error" th:errors="${event.contactEmail}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-success"> <
