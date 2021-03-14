@@ -1,18 +1,16 @@
 package org.launchcode.codingevents.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 
 @Entity
-public class Event extends AbstractEntity { // Added 'extends' when we moved our id-related coding into the AbstractEntity class. Now Event will inherit that code.
-
-//    @Id // Removed this section because there's essentially a duplicate of this info in EventCategory and we want to make our code more DRY. Thus, we're creating AbstractEntity with this id code so that Event and EventCategory can inherit this information from AbstractEntity.
-//    @GeneratedValue
-//    private int id;
+public class Event extends AbstractEntity {
 
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
@@ -25,13 +23,17 @@ public class Event extends AbstractEntity { // Added 'extends' when we moved our
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    private EventType type;
+//    private EventType type; // Before we had the ability to store objects in a database, we were keeping track of our event categories/types using our EventType Enum. But that only allowed us to use one of the four event types we set up in the EventType enum.
 
-    public Event(String name, String description, String contactEmail, EventType type) {
+    @ManyToOne // Tells Hibernate that when we're creating this object that we should be able to relate them in the database where we'll have one EventCategory per Event (aka can have many events in the same category).
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory; // This replaces the variable type (of EventType object), meaning anywhere we were referencing this variable needs to change to eventCategory. That means updating the constructor and getter and setters for this new field.
+
+    public Event(String name, String description, String contactEmail, EventCategory eventCategory) {
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
-        this.type = type;
+        this.eventCategory = eventCategory;
     }
 
     public Event() {}
@@ -60,33 +62,17 @@ public class Event extends AbstractEntity { // Added 'extends' when we moved our
         this.contactEmail = contactEmail;
     }
 
-    public EventType getType() {
-        return type;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
-
-//    public int getId() { // Removed this section because there's essentially a duplicate of this info in EventCategory and we want to make our code more DRY. Thus, we're creating AbstractEntity with this id code so that Event and EventCategory can inherit this information from AbstractEntity.
-//        return id;
-//    }
 
     @Override
     public String toString() {
         return name;
     }
 
-//    @Override // Removed this section because there's essentially a duplicate of this info in EventCategory and we want to make our code more DRY. Thus, we're creating AbstractEntity with this id code so that Event and EventCategory can inherit this information from AbstractEntity.
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Event event = (Event) o;
-//        return id == event.id;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id);
-//    }
 }
