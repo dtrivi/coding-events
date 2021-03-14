@@ -1,22 +1,18 @@
 package org.launchcode.codingevents.models;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
-// Business data of our application. What our application is about. Objects for which we want to be stored in the database. It's the 'things we want to keep track of'.
-// So far when we run our application, our data has been stored temporarily in memory using the EventData data layer, which just keeps that data in a collection which allows them to be retrieve. But every time we start and stop our application, we lose that data because it's not stored persistently in an external database.
 
-@Entity // Tells Java this is a persistent class/entity class. Means Event objects can be stored outside our application in a database.
-public class Event {
 
-    @Id // Says this is a primary key
-    @GeneratedValue // Wants database to generate the values of our primary key. So we don't need to use the nextId field as well as the nextId++ functionality we had in our no-arg Event constructor. We also delete the line that calls for the no-arg constructor in our main Event constructor.
-    private int id; // Already functioning similarly to a primary key (our second step in setting up this Entity class). So we'll adjust it instead of remove it.
+@Entity
+public class Event extends AbstractEntity { // Added 'extends' when we moved our id-related coding into the AbstractEntity class. Now Event will inherit that code.
+
+//    @Id // Removed this section because there's essentially a duplicate of this info in EventCategory and we want to make our code more DRY. Thus, we're creating AbstractEntity with this id code so that Event and EventCategory can inherit this information from AbstractEntity.
+//    @GeneratedValue
+//    private int id;
 
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
@@ -72,25 +68,25 @@ public class Event {
         this.type = type;
     }
 
-    public int getId() { // Don't want to create a setter because we don't want someone to set our id's for us in this case. Also, don't want to expose nextId. It will remain private and only to be used INSIDE the class. Just used for the id initialization.
-        return id;
-    }
+//    public int getId() { // Removed this section because there's essentially a duplicate of this info in EventCategory and we want to make our code more DRY. Thus, we're creating AbstractEntity with this id code so that Event and EventCategory can inherit this information from AbstractEntity.
+//        return id;
+//    }
 
     @Override
     public String toString() {
         return name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return id == event.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+//    @Override // Removed this section because there's essentially a duplicate of this info in EventCategory and we want to make our code more DRY. Thus, we're creating AbstractEntity with this id code so that Event and EventCategory can inherit this information from AbstractEntity.
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Event event = (Event) o;
+//        return id == event.id;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 }
