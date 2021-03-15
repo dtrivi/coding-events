@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
-@MappedSuperclass // Says the fields in this class should be pushed down into the tables for the objects that extend it (/use our ORM system). Thus, we want our private id field to be stored in the table that goes with Event or EventCategory. The id field is our primary key so we still want to keep it in our tables even though it's not specifically contained in our two model classes.
+@MappedSuperclass // @MappedSuperclass is the annotation that allows @AbstractEntity to handle logic related to IDs/primary keys of subclasses, yet not be mapped to a database table. Says the fields in this class should be pushed down into the tables for the objects that extend it (/use our ORM system). Thus, we want our private id field to be stored in the table that goes with Event or EventCategory. The id field is our primary key so we still want to keep it in our tables even though it's not specifically contained in our two model classes.
 public abstract class AbstractEntity { // An abstract class is a class you can only use by extending. The purpose of this class isn't to create more AbstractEntity objects, it's for us to collect shared data and behavior that we can share across other class. We don't want to actually intantiate this class. So we make it abstract to enfore the rule that nobody gets to create an AbstractEntity object.
 
     @Id

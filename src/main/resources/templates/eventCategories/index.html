@@ -12,7 +12,8 @@
     </tr>
     </thead>
     <tr th:each="category : ${categories}">
-        <td th:text="${category.name}"></td>
+        <!-- We want to be able to provide a link on each category name we create so that when we click on that link, we get a listing on just the events in that category. So we use <a> to put in a link(?) then insert the actual link with th:href and the path. Use single quotes so we can do some string concatenation. category is our iterator variable and we want the id of that event. -->
+        <td><a th:text="${category.name}" th:href="'/events?categoryId=' + ${category.id}"></a></td>
     </tr>
 
 </table>
