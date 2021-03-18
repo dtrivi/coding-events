@@ -14,26 +14,25 @@
     </div>
     <div class="form-group">
         <label>Description
-            <input th:field="${event.description}" class="form-control">
+            <input th:field="${event.eventDetails.description}" class="form-control"> <!-- Have to update this nowt hat we have the EventDetails class. -->
         </label>
-        <p class="error" th:errors="${event.description}"></p>
+        <p class="error" th:errors="${event.eventDetails.description}"></p>
     </div>
     <div class="form-group">
         <label>Contact Email
-            <input th:field="${event.contactEmail}" class="form-control">
+            <input th:field="${event.eventDetails.contactEmail}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.contactEmail}"></p>
+        <p class="error" th:errors="${event.eventDetails.contactEmail}"></p>
     </div>
     <div class="form-group">
         <label>Category
-            <select th:field="${event.eventCategory}" > <!-- This was where we had our enum drop down of event types. Changed this to event.eventCategory since that's the field name off of Events (not sure why but we don't need to use the getter here). -->
+            <select th:field="${event.eventCategory}" >
                 <option th:each="eventCategory : ${categories}"
                         th:value="${eventCategory.id}"
                         th:text="${eventCategory.name}"
-                ></option> <!-- for th:value, value should not be an actual EventCategory object, but it should be its id. Thus instead of eventCategory, we use eventCategory.id -->
-                <!-- for th:text, instead of displayName, our field on EventCategory is 'name' (we previously had event.displayName when we were still referring to our EventType model. -->
+                ></option>
+
             </select>
-            <!-- Then create an error message should we reach one. -->
             <p class="error" th:errors="${event.eventCategory}"></p>
         </label>
     </div>

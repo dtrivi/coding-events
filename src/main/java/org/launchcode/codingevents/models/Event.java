@@ -1,8 +1,10 @@
 package org.launchcode.codingevents.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Email;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,23 +18,19 @@ public class Event extends AbstractEntity {
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
     private String name;
 
-    @Size(max = 500, message = "Description too long.")
-    private String description;
+    // Relate EventDetails class to this Event class
+    // Cascade allows you to specify in the relationship of two objects, how ORM operations are applied to sub-objects. So now, whenever an Event is saved, we want to also save the eventDetails object data.
+    @OneToOne(cascade = CascadeType.ALL) // Creates a foreign key column on our Event table that references the EventDetails table
+    @Valid // Need this because when we want to validate our new Event objects in the controller, when we add @Valid to the Event, it won't validate objects contained within the Event. It'll only validate the top level fields, like name and category.
+    @NotNull // Need this to go down into the fields to actually check their values
+    private EventDetails eventDetails;
 
-    @NotBlank(message = "Email is required.")
-    @Email(message = "Invalid email. Try again.")
-    private String contactEmail;
-
-//    private EventType type; // Before we had the ability to store objects in a database, we were keeping track of our event categories/types using our EventType Enum. But that only allowed us to use one of the four event types we set up in the EventType enum.
-
-    @ManyToOne // Tells Hibernate that when we're creating this object that we should be able to relate them in the database where we'll have one EventCategory per Event (aka can have many events in the same category).
+    @ManyToOne
     @NotNull(message = "Category is required")
-    private EventCategory eventCategory; // This replaces the variable type (of EventType object), meaning anywhere we were referencing this variable needs to change to eventCategory. That means updating the constructor and getter and setters for this new field.
+    private EventCategory eventCategory;
 
-    public Event(String name, String description, String contactEmail, EventCategory eventCategory) {
+    public Event(String name, EventCategory eventCategory) {
         this.name = name;
-        this.description = description;
-        this.contactEmail = contactEmail;
         this.eventCategory = eventCategory;
     }
 
@@ -46,28 +44,20 @@ public class Event extends AbstractEntity {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
     public EventCategory getEventCategory() {
         return eventCategory;
     }
 
     public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
+    }
+
+    public EventDetails getEventDetails() {
+        return eventDetails;
+    }
+
+    public void setEventDetails(EventDetails eventDetails) {
+        this.eventDetails = eventDetails;
     }
 
     @Override
