@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<form method="post">
+    <div class="form-group">
+        <!-- We'll be putting the id of the event as the value of our hidden input. When this form is submitted, model binding will attempt to create a new eventTag object and try to set the event field to the event with this id, and it will try to set the tag field with the tag that was selected. -->
+        <input type="hidden" th:field="${eventTag.event}"> <!-- this is a way for us to pass in form data on submission, while not showing it to the user -->
+        <select th:field="${eventTag.tag}">
+            <option th:each="tag : ${tags}"
+                    th:value="${tag.id}"
+                    th:text="${tag.name}"
+            ></option>
+        </select>
+    </div>
+    <input type="submit" class="btn btn-success" value="Add Tag">
+</form>
+
+</body>
+</html>
